@@ -1,2 +1,5 @@
+discord.py>=2.3.0
+python-dotenv>=0.21.0
+# sqlite3 is in the Python standard library
 discord.py>=2.0.0
 python-dotenv>=1.0.0

@@ -1,0 +1,8 @@
+__pycache__/
+*.pyc
+.env
+discord_bot.db
+venv/
+env/
+*.sqlite3
+secrets.json

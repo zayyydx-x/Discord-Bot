@@ -5,10 +5,24 @@ import os
 import sqlite3
 from datetime import datetime
 from dotenv import load_dotenv
+import logging
+import sys
 
 # Load environment variables
 load_dotenv()
 TOKEN = os.getenv('DISCORD_TOKEN')
+
+# Configure simple logging
+logging.basicConfig(
+	level=logging.INFO,
+	format='[%(asctime)s] %(levelname)s: %(message)s',
+	datefmt='%Y-%m-%d %H:%M:%S'
+)
+
+# Fail fast if token is missing to provide a clear error message
+if not TOKEN:
+	logging.error('DISCORD_TOKEN not set. Please set DISCORD_TOKEN in your environment or in a .env file.')
+	sys.exit(1)
 
 # Set up bot with command prefix
 intents = discord.Intents.default()
@@ -42,14 +56,13 @@ init_db()
 
 @bot.event
 async def on_ready():
-	print(f'{bot.user} has connected to Discord!')
-	print(f'Bot ID: {bot.user.id}')
-	print('------')
+	logging.info('%s has connected to Discord!', bot.user)
+	logging.info('Bot ID: %s', bot.user.id)
 	try:
 		synced = await bot.tree.sync()
-		print(f'Synced {len(synced)} command(s)')
+		logging.info('Synced %d command(s)', len(synced))
 	except Exception as e:
-		print(f'Error syncing commands: {e}')
+		logging.warning('Error syncing commands: %s', e)
 	# Only start the background task if it's not already running (prevents double-starts)
 	if not status_update.is_running():
 		status_update.start()
@@ -82,7 +95,7 @@ async def on_member_join(member):
 @bot.event
 async def on_member_remove(member):
 	"""Log when members leave"""
-	print(f'{member.name} left the server')
+	logging.info('%s left the server', member.name)
 
 @bot.event
 async def on_message(message):
@@ -445,6 +458,7 @@ async def help_command(ctx):
     
 	await ctx.send(embed=embed)
 
-# Run the bot
-bot.run(TOKEN)
+if __name__ == '__main__':
+	# Run the bot
+	bot.run(TOKEN)
 

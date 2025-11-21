@@ -1,5 +1,39 @@
 # Discord Bot
 
+Small Discord bot using `discord.py` with basic moderation, fun, and utility commands.
+
+Getting started
+
+- Create a Python 3.10+ virtual environment and activate it.
+- Install dependencies:
+
+```powershell
+python -m pip install -r requirements.txt
+```
+
+- Create a `.env` file containing your bot token:
+
+```
+DISCORD_TOKEN=your-bot-token-here
+```
+
+- Run the bot:
+
+```powershell
+python d:\Bot\bot.py
+```
+
+Committing changes
+
+```powershell
+git add .
+git commit -m "Small updates: logging, requirements, README, gitignore"
+git push origin main
+```
+
+If you want me to create a branch, run tests, or make additional changes, tell me what to update next.
+# Discord Bot
+
 Files:
 
 - `bot.py` - Main bot script (place your token in `.env` or set `DISCORD_TOKEN` env var).
