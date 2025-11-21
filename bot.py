@@ -50,13 +50,15 @@ async def on_ready():
 		print(f'Synced {len(synced)} command(s)')
 	except Exception as e:
 		print(f'Error syncing commands: {e}')
-	status_update.start()
+	# Only start the background task if it's not already running (prevents double-starts)
+	if not status_update.is_running():
+		status_update.start()
 
 @bot.event
 async def on_member_join(member):
 	"""Welcome new members"""
 	try:
-		await member.create_dm()
+		# Send DM directly; this works whether or not a DM channel already exists
 		embed = discord.Embed(
 			title=f'Welcome to {member.guild.name}!',
 			description=f'Hi {member.mention}! Use `/help` or `!help` to see available commands.',
@@ -64,8 +66,9 @@ async def on_member_join(member):
 		)
 		# Use display_avatar for a safer avatar URL (works when a member has no custom avatar)
 		embed.set_thumbnail(url=member.display_avatar.url)
-		await member.dm_channel.send(embed=embed)
-	except:
+		await member.send(embed=embed)
+	except Exception:
+		# ignore DM fails (user may have DMs disabled)
 		pass
     
 	# Add user to database
