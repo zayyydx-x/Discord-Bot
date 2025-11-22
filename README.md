@@ -55,3 +55,12 @@ python bot.py
 Notes:
 - The bot requires a valid Discord bot token set as `DISCORD_TOKEN` in environment or in a `.env` file.
 - Running the bot will connect to Discord — do not run without a valid token and correct permissions.
+
+**Contributing**
+
+- Fork the repository and create a branch for your change: `git checkout -b my-feature`.
+- Make small, focused commits and add a brief commit message describing the change.
+- Push your branch and open a pull request from your fork to the `enhance-documentation` branch.
+- Keep PRs small and focused (one logical change per PR) to speed review.
+
+Thank you for contributing — feel free to open issues or PRs for improvements.
